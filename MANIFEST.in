@@ -1,0 +1,6 @@
+include LICENSE
+include MANIFEST.in
+include README.rst
+include README
+include setup.py
+recursive-include docs *
