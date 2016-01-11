@@ -51,6 +51,9 @@ source_suffix = '.rst'
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
 
+#Enable autoclass
+autoclass_content = "both"
+
 # The master toctree document.
 master_doc = 'index'
 
