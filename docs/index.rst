@@ -212,6 +212,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+Affiliation
+-----------
+
+The author is affiliated with the Data Science division of
+the National Association of REALTORS.
 
 Indices and tables
 ------------------
