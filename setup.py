@@ -6,7 +6,7 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-VERSION = (1, 0, 10)
+VERSION = (1, 1, 2)
 __version__ = VERSION
 __versionstr__ = '.'.join(map(str, VERSION))
 
@@ -38,7 +38,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
