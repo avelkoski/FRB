@@ -16,7 +16,7 @@ def _fetch(url):
     """
     req = Request(url)
     page = urlopen(req)
-    content = page.read()
+    content = page.read().decode('utf-8')
     page.close()
     return content
 
