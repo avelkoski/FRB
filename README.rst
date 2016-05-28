@@ -4,7 +4,7 @@ Python client for interfacing with the Federal Reserve Bank's
 FRED API. Our goal is to provide a simple, well-documented
 solution for FRED-related programming in Python.
 
-.. note::
+::
 
   This is a third-party client that is developed and maintained
   independently of the Federal Reserve Bank. As such, it is not
@@ -181,7 +181,7 @@ License
 
 The MIT License (MIT)
 
-Copyright (c) 2016 Aleksandar Velkoski https://github.com/avelkoski
+Copyright (c) 2016 Aleksandar Velkoski avelkoski@realtors.org
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -205,4 +205,4 @@ Affiliation
 -----------
 
 The author is affiliated with the Data Science division of
-the National Association of REALTORS.
+the National Association of REALTORS®.
