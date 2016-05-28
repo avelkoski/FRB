@@ -1,5 +1,5 @@
-Federal Reserve Economic Data (FRED) Client
-==================================================
+Python Client for FRED® API
+===========================
 Python client for interfacing with the Federal Reserve Bank's
 FRED API. Our goal is to provide a simple, well-documented
 solution for FRED-related programming in Python.
