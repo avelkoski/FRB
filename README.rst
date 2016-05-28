@@ -4,6 +4,12 @@ Python client for interfacing with the Federal Reserve Bank's
 FRED API. Our goal is to provide a simple, well-documented
 solution for FRED-related programming in Python.
 
+.. note::
+
+  This is a third-party client that is developed and maintained
+  independently of the Federal Reserve Bank. As such, it is not
+  affiliated with or supported by the institution.
+
 Features
 --------
 
