@@ -23,17 +23,20 @@ class Fred(object):
     :arg str api_key: 32 character alpha-numeric lowercase string. Required.
     :arg str realtime_start: The start of the real-time period. Format "YYYY-MM-DD"
     :arg str realtime_end: The end of the real-time period. Format "YYYY-MM-DD"
+    :arg bool ssl_verify: To verify HTTPs.
     """
-    def __init__(self,api_key=c.api_key,response_type=c.response_type):
+    def __init__(self,api_key=c.api_key,response_type=c.response_type, ssl_verify=c.ssl_verify):
         ## Set root URL
         self.url_root = 'https://api.stlouisfed.org/fred'
         ## Set default API key
         self.api_key = api_key if api_key else None
         ## Set default file type
         self.response_type = response_type if response_type else None
+        ## Set SSL Verify
+        self.ssl_verify = ssl_verify
         ## Initiate clients
-        self.category = CategoriesClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type)
-        self.release = ReleasesClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type)
-        self.series = ESeriesClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type)
-        self.tag = TagsClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type)
-        self.source = SourcesClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type)
+        self.category = CategoriesClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type,self.ssl_verify)
+        self.release = ReleasesClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type,self.ssl_verify)
+        self.series = ESeriesClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type,self.ssl_verify)
+        self.tag = TagsClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type,self.ssl_verify)
+        self.source = SourcesClient(weakref.proxy(self),self.api_key,self.url_root,self.response_type,self.ssl_verify)

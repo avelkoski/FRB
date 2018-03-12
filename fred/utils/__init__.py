@@ -22,8 +22,9 @@ class NamespacedClient(object):
     """
     Class for working with FRED categories
     """
-    def __init__(self,client,api_key,url_root,response_type):
+    def __init__(self,client,api_key,url_root,response_type,ssl_verify):
         self.client = client
         self.api_key = api_key
         self.url_root = url_root
         self.response_type = response_type
+        self.ssl_verify = ssl_verify

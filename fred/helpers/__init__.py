@@ -2,20 +2,28 @@ from sys import version_info
 if version_info[0] >= 3:
     from urllib.parse import urlencode
     from urllib.request import Request, urlopen
+    import ssl
 else:
     from urllib import urlencode
     from urllib2 import Request, urlopen
+    import ssl
 
 import fred.config as c
 from json import loads
 from pandas import DataFrame
 
-def _fetch(url):
+def _fetch(url, ssl_verify = True):
     """
     Helper funcation to fetch content from a given url.
     """
     req = Request(url)
-    page = urlopen(req)
+    if ssl_verify:
+        page = urlopen(req)
+    else:
+        context = ssl.create_default_context()
+        context.check_hostname = False
+        context.verify_mode = ssl.CERT_NONE
+        page = urlopen(req, context=context)
     content = page.read().decode('utf-8')
     page.close()
     return content
@@ -108,11 +116,11 @@ def _dispatch(response_type):
                 'tab': _tab, 'pipe': _pipe}
     return dispatch[response_type]
 
-def _get_request(url_root,api_key,path,response_type,params):
+def _get_request(url_root,api_key,path,response_type,params, ssl_verify):
     """
     Helper funcation that requests a get response from FRED.
     """
     url = _url_builder(url_root,api_key,path,params)
-    content = _fetch(url)
+    content = _fetch(url, ssl_verify)
     response = _dispatch(response_type)(content)
     return response

@@ -17,12 +17,13 @@ class SourcesClient(NamespacedClient):
                             'dict','df','numpy','csv','tab,'pipe'. Required.
         :arg str realtime_start: The start of the real-time period. Format "YYYY-MM-DD"
         :arg str realtime_end: The end of the real-time period. Format "YYYY-MM-DD"
+        :arg bool ssl_verify: To verify HTTPs.
         """
         path='/source?'
         params['source_id'] = source_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
         return response
 
     @query_params('realtime_start','realtime_end','limit',
@@ -41,11 +42,12 @@ class SourcesClient(NamespacedClient):
         :arg str order_by: Order results by values of the specified attribute. Options are 'source_id',
                             'name', 'realtime_start', 'realtime_end'
         :arg str sort_order: Sort results for attribute values specified by order_by. Options are 'asc','desc'
+        :arg bool ssl_verify: To verify HTTPs.
         """
         path='/sources?'
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -65,10 +67,11 @@ class SourcesClient(NamespacedClient):
         :arg str order_by: Order results by values of the specified attribute. Options are 'source_id',
                             'name', 'realtime_start', 'realtime_end'
         :arg str sort_order: Sort results for attribute values specified by order_by. Options are 'asc','desc'
+        :arg bool ssl_verify: To verify HTTPs.
         """
         path='/source/releases?'
         params['source_id'] = source_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
         return response

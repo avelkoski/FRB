@@ -26,3 +26,6 @@ dates = [
         'observation_end',
         'created'
         ]
+
+## SSL Verify HTTPS
+ssl_verify = True
