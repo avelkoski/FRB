@@ -20,10 +20,11 @@ def _fetch(url, ssl_verify = True):
     if ssl_verify:
         page = urlopen(req)
     else:
-        context = ssl.create_default_context()
-        context.check_hostname = False
-        context.verify_mode = ssl.CERT_NONE
-        page = urlopen(req, context=context)
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+
+        page = urlopen(req, context=ctx)
     content = page.read().decode('utf-8')
     page.close()
     return content
