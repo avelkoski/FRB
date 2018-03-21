@@ -15,12 +15,13 @@ class CategoriesClient(NamespacedClient):
         :arg int category_id: The id for a category. Required.
         :arg str response_type: File extension of response. Options are 'xml', 'json',
                             'dict','df','numpy','csv','tab,'pipe'. Required.
+        :arg bool ssl_verify: To verify HTTPs.
         """
         path='/category?'
         params['category_id'] = category_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
         return response
 
     @query_params('realtime_start','realtime_end')
@@ -34,12 +35,13 @@ class CategoriesClient(NamespacedClient):
                             'dict','df','numpy','csv','tab,'pipe'. Required.
         :arg str realtime_start: The start of the real-time period. Format "YYYY-MM-DD"
         :arg str realtime_end: The end of the real-time period. Format "YYYY-MM-DD"
+        :arg bool ssl_verify: To verify HTTPs.
         """
         path='/category/children?'
         params['category_id'] = category_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
         return response
 
     @query_params('realtime_start','realtime_end')
@@ -56,12 +58,13 @@ class CategoriesClient(NamespacedClient):
                             'dict','df','numpy','csv','tab,'pipe'. Required.
         :arg str realtime_start: The start of the real-time period. Format "YYYY-MM-DD"
         :arg str realtime_end: The end of the real-time period. Format "YYYY-MM-DD"
+        :arg bool ssl_verify: To verify HTTPs.
         """
         path = '/category/related?'
         params['category_id'] = category_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -87,12 +90,13 @@ class CategoriesClient(NamespacedClient):
         :arg str filter_value: The value of the filter_variable attribute to filter results by.
         :arg str tag_names: Tag names used to match series. Separate with semicolon as in "income;bea"
         :arg str exclude_tag_names: Tag names used to exclude series. Separate with semicolon as in "income;bea"
+        :arg bool ssl_verify: To verify HTTPs.
         """
         path = '/category/series?'
         params['category_id'] = category_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -120,12 +124,13 @@ class CategoriesClient(NamespacedClient):
         :arg str tag_names: Tag names to only include in the response. Separate with semicolon as in "income;bea"
         :arg str tag_group_id: Tag ID to filter tags by. Options are 'freq', 'gen', 'geo', 'geot', 'rls', 'seas', 'src'
         :arg str search_text: The words to find matching tags with. For example 'mortgage rates'
+        :arg bool ssl_verify: To verify HTTPs.
         """
         path = '/category/tags?'
         params['category_id'] = category_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -154,10 +159,11 @@ class CategoriesClient(NamespacedClient):
         :arg str exclude_tag_names: Tag names to exclude. Separate with semicolon as in "income;bea"
         :arg str tag_group_id: Tag ID to filter tags by. Options are 'freq', 'gen', 'geo', 'geot', 'rls', 'seas', 'src'
         :arg str search_text: The words to find matching tags with. For example 'mortgage rates'
+        :arg bool ssl_verify: To verify HTTPs.
         """
         path='/category/related_tags?'
         params['category_id'], params['tag_names'] = category_id, tag_names
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
         return response
