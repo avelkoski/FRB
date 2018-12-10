@@ -14,6 +14,7 @@ from pandas import DataFrame
 
 # consider putting this in ~/.fred or env var
 _USE_JOBLIB_CACHE = True
+_THROTTLE_REQUESTS = True
 
 def _fetch(url, ssl_verify = True):
     """
@@ -131,8 +132,13 @@ def _get_request(url_root,api_key,path,response_type,params, ssl_verify):
 
 if _USE_JOBLIB_CACHE:
     import joblib
-    location = '/tmp/joblib_cache'
     one_gb = 1000000000
+    location = '/tmp/joblib_cache'
     memory = joblib.Memory(location, verbose=1, bytes_limit=one_gb)
-    memory.cache
-    _get_request = memory.cache(_get_request)
+    if _THROTTLE_REQUESTS:
+        from ratelimit import limits, sleep_and_retry
+        period_seconds = 1
+        calls_per_second = 20
+        _get_request = memory.cache(sleep_and_retry(limits(calls=calls_per_second, period=period_seconds)(_get_request)))
+    else:
+        _get_request = memory.cache(_get_request)
