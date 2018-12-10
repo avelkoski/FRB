@@ -12,6 +12,9 @@ import fred.config as c
 from json import loads
 from pandas import DataFrame
 
+# consider putting this in ~/.fred or env var
+_USE_JOBLIB_CACHE = True
+
 def _fetch(url, ssl_verify = True):
     """
     Helper funcation to fetch content from a given url.
@@ -125,3 +128,11 @@ def _get_request(url_root,api_key,path,response_type,params, ssl_verify):
     content = _fetch(url, ssl_verify)
     response = _dispatch(response_type)(content)
     return response
+
+if _USE_JOBLIB_CACHE:
+    import joblib
+    location = '/tmp/joblib_cache'
+    one_gb = 1000000000
+    memory = joblib.Memory(location, verbose=1, bytes_limit=one_gb)
+    memory.cache
+    _get_request = memory.cache(_get_request)
