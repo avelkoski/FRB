@@ -10,7 +10,13 @@ else:
 
 import fred.config as c
 from json import loads
-from pandas import DataFrame
+
+try:
+    from pandas import DataFrame
+    _has_pandas = True
+except ImportError:
+    DataFrame = None
+    _has_pandas = False
 
 # consider putting this in ~/.fred or env var
 _USE_JOBLIB_CACHE = True
@@ -57,8 +63,13 @@ def _dict(content):
     Helper funcation that converts text-based get response
     to a python dictionary for additional manipulation.
     """
-    response = _data_frame(content).to_dict(orient='records')
-    return response
+    if _has_pandas:
+        data = _data_frame(content).to_dict(orient='records')
+    else:
+        response = loads(content)
+        key = [x for x in response.keys() if x in c.response_data][0]
+        data = response[key]
+    return data
 
 def _data_frame(content):
     """
@@ -116,10 +127,16 @@ def _xml(content):
     return content
 
 def _dispatch(response_type):
-    dispatch = {'dict':_dict,'df':_data_frame,'json':_json,
-                'xml':_xml,'csv':_csv,'numpy':_numpy,
-                'tab': _tab, 'pipe': _pipe}
+    if _has_pandas:
+        dispatch = {'dict': _dict,'json': _json,
+                    'xml': _xml,'df':_data_frame,
+                    'csv':_csv,'numpy':_numpy,
+                    'tab': _tab,'pipe': _pipe}
+    else:
+        dispatch = {'dict': _dict,'json': _json,'xml': _xml, }
+
     return dispatch[response_type]
+
 
 def _get_request(url_root,api_key,path,response_type,params, ssl_verify):
     """
