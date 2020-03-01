@@ -231,3 +231,34 @@ class ReleasesClient(NamespacedClient):
         if response_type != 'xml': params['file_type'] = 'json'
         response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
+
+
+    @query_params('element_id',
+                  'include_observation_values','observation_date')
+    def tables(self,release_id=None,response_type=None,params=None):
+        """
+        Get release table trees for a given release. You can go directly to the tree structure by 
+        passing the appropriate element_id. 
+        You may also use a drill-down approach to start at the root (top most) element by leaving the 
+        element_id off.
+        Note that release dates are published by data sources and do not necessarily represent when data 
+        will be available on the FRED or ALFRED websites. 
+
+        :arg int release_id: The id for a release. Required.
+        :arg int element_id: The release table element id you would like to retrieve.
+        When the parameter is not passed, the root(top most) element for the release 
+        is given.
+        :arg bool include_observation_values: A flag to indicate that observations 
+        need to be returned. Observation value and date will only be returned for a 
+        series type element. Default: false
+        :arg str observation_date: The observation date to be included with the returned release table.
+        YYYY-MM-DD formatted string, optional, default: 9999-12-31 (latest available)
+        :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
+        """
+        path='/release/tables?'
+        params['release_id'] = release_id
+        response_type = response_type if response_type else self.response_type
+        if response_type != 'xml': params['file_type'] = 'json'
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
+        return response
