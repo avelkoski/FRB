@@ -18,12 +18,13 @@ class SourcesClient(NamespacedClient):
         :arg str realtime_start: The start of the real-time period. Format "YYYY-MM-DD"
         :arg str realtime_end: The end of the real-time period. Format "YYYY-MM-DD"
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/source?'
         params['source_id'] = source_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit',
@@ -43,11 +44,12 @@ class SourcesClient(NamespacedClient):
                             'name', 'realtime_start', 'realtime_end'
         :arg str sort_order: Sort results for attribute values specified by order_by. Options are 'asc','desc'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/sources?'
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -68,10 +70,11 @@ class SourcesClient(NamespacedClient):
                             'name', 'realtime_start', 'realtime_end'
         :arg str sort_order: Sort results for attribute values specified by order_by. Options are 'asc','desc'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/source/releases?'
         params['source_id'] = source_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response

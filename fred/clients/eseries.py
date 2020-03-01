@@ -24,7 +24,7 @@ class ESeriesClient(NamespacedClient):
         params['series_id'] = series_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end')
@@ -39,12 +39,13 @@ class ESeriesClient(NamespacedClient):
         :arg str realtime_start: The start of the real-time period. Format "YYYY-MM-DD"
         :arg str realtime_end: The end of the real-time period. Format "YYYY-MM-DD"
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/series/categories?'
         params['series_id'] = series_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end')
@@ -59,12 +60,13 @@ class ESeriesClient(NamespacedClient):
         :arg str realtime_start: The start of the real-time period. Format "YYYY-MM-DD"
         :arg str realtime_end: The end of the real-time period. Format "YYYY-MM-DD"
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/series/release?'
         params['series_id'] = series_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end',
@@ -84,12 +86,13 @@ class ESeriesClient(NamespacedClient):
                             'popularity', 'created', 'name', 'group_id'
         :arg str sort_order: Sort results for attribute values specified by order_by. Options are 'asc','desc'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/series/tags?'
         params['series_id'] = series_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit',
@@ -111,12 +114,13 @@ class ESeriesClient(NamespacedClient):
         :arg str filter_value: Limit results by geographic type of economic data series. Options are 'macro',
                                 'regional', and 'all'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/series/updates?'
         params['series_id'] = series_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit',
@@ -137,12 +141,13 @@ class ESeriesClient(NamespacedClient):
         :arg int offset: Data offset. Options >=0
         :arg str sort_order: Sort results by vintage_date. Options are 'asc','desc'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/series/vintagedates?'
         params['series_id'] = series_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit',
@@ -174,12 +179,13 @@ class ESeriesClient(NamespacedClient):
         :arg int output_type: Output type. Options are 1, 2, 3, 4
         :arg str vintage_dates: Date(s) in history. Format "YYYY-MM-DD". Example for multiple dates "2000-01-01,2005-02-24,..."
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/series/observations?'
         params['series_id'] = series_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('search_type','realtime_start','realtime_end',
@@ -207,12 +213,13 @@ class ESeriesClient(NamespacedClient):
         :arg str tag_names: Tag names used to match series. Separate with semicolon as in "income;bea"
         :arg str exclude_tag_names: Tag names used to exclude series. Separate with semicolon as in "income;bea"
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/series/search?'
         params['search_text'] = search_text
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end',
@@ -237,12 +244,13 @@ class ESeriesClient(NamespacedClient):
         :arg str tag_group_id: Tag ID to filter tags by. Options are 'freq', 'gen', 'geo', 'geot', 'rls', 'seas', 'src'
         :arg str tag_search_text: The words to find matching tags with.
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/series/search/tags?'
         params['series_search_text'] = series_search_text
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end',
@@ -268,10 +276,11 @@ class ESeriesClient(NamespacedClient):
         :arg str tag_search_text: The words to find matching tags with.
         :arg str exclude_tag_names: Tag names to exclude. Separate with semicolon as in "income;bea"
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/series/search/related_tags?'
         params['series_search_text'], params['tag_names'] = series_search_text, tag_names
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
