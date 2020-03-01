@@ -1,7 +1,7 @@
 from sys import version_info
 if version_info[0] >= 3:
     from urllib.parse import urlencode
-    from urllib.request import Request, urlopen
+    from urllib.request import Request, urlopen, ProxyHandler, build_opener, install_opener
     import ssl
 else:
     from urllib import urlencode
@@ -22,11 +22,14 @@ except ImportError:
 _USE_JOBLIB_CACHE = True
 _THROTTLE_REQUESTS = True
 
-def _fetch(url, ssl_verify = True):
+def _fetch(url, ssl_verify = True, proxy = None):
     """
     Helper funcation to fetch content from a given url.
     """
     req = Request(url)
+    my_proxy = ProxyHandler(proxy)
+    opener = build_opener(my_proxy)
+    install_opener(opener)
     if ssl_verify:
         page = urlopen(req)
     else:
@@ -138,12 +141,12 @@ def _dispatch(response_type):
     return dispatch[response_type]
 
 
-def _get_request(url_root,api_key,path,response_type,params, ssl_verify):
+def _get_request(url_root,api_key,path,response_type,params, ssl_verify, proxy):
     """
     Helper funcation that requests a get response from FRED.
     """
     url = _url_builder(url_root,api_key,path,params)
-    content = _fetch(url, ssl_verify)
+    content = _fetch(url, ssl_verify, proxy)
     response = _dispatch(response_type)(content)
     return response
 
