@@ -24,11 +24,12 @@ class ReleasesClient(NamespacedClient):
                             'name', 'press_release', 'realtime_start', 'realtime_end'
         :arg str sort_order: Sort results for attribute values specified by order_by. Options are 'asc','desc'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/releases?'
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -50,11 +51,12 @@ class ReleasesClient(NamespacedClient):
         :arg str include_release_dates_with_no_data: Determines whether release dates with no data available are returned.
                                     Options are 'true', 'false'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/releases/dates?'
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end')
@@ -69,12 +71,13 @@ class ReleasesClient(NamespacedClient):
         :arg str realtime_start: The start of the real-time period. Format "YYYY-MM-DD"
         :arg str realtime_end: The end of the real-time period. Format "YYYY-MM-DD"
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/release?'
         params['release_id'] = release_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end')
@@ -89,12 +92,13 @@ class ReleasesClient(NamespacedClient):
         :arg str realtime_start: The start of the real-time period. Format "YYYY-MM-DD"
         :arg str realtime_end: The end of the real-time period. Format "YYYY-MM-DD"
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/release/sources?'
         params['release_id'] = release_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -117,12 +121,13 @@ class ReleasesClient(NamespacedClient):
         :arg str include_release_dates_with_no_data: Determines whether release dates with no data available are returned.
                                     Options are 'true', 'false'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/release/dates?'
         params['release_id'] = release_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -149,12 +154,13 @@ class ReleasesClient(NamespacedClient):
         :arg str tag_names: Tag names used to match series. Separate with semicolon as in "income;bea"
         :arg str exclude_tag_names: Tag names used to exclude series. Separate with semicolon as in "income;bea"
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/release/series?'
         params['release_id'] = release_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -182,12 +188,13 @@ class ReleasesClient(NamespacedClient):
         :arg str tag_group_id: Tag ID to filter tags by. Options are 'freq', 'gen', 'geo', 'geot', 'rls', 'seas', 'src'
         :arg str search_text: The words to find matching tags with. For example 'mortgage rates'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/release/tags?'
         params['release_id'] = release_id
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -216,10 +223,42 @@ class ReleasesClient(NamespacedClient):
         :arg str tag_group_id: Tag ID to filter tags by. Options are 'freq', 'gen', 'geo', 'geot', 'rls', 'seas', 'src'
         :arg str search_text: The words to find matching tags with. For example 'mortgage rates'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/release/related_tags?'
         params['release_id'], params['tag_names'] = release_id, tag_names
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
+        return response
+
+
+    @query_params('element_id',
+                  'include_observation_values','observation_date')
+    def tables(self,release_id=None,response_type=None,params=None):
+        """
+        Get release table trees for a given release. You can go directly to the tree structure by 
+        passing the appropriate element_id. 
+        You may also use a drill-down approach to start at the root (top most) element by leaving the 
+        element_id off.
+        Note that release dates are published by data sources and do not necessarily represent when data 
+        will be available on the FRED or ALFRED websites. 
+
+        :arg int release_id: The id for a release. Required.
+        :arg int element_id: The release table element id you would like to retrieve.
+        When the parameter is not passed, the root(top most) element for the release 
+        is given.
+        :arg bool include_observation_values: A flag to indicate that observations 
+        need to be returned. Observation value and date will only be returned for a 
+        series type element. Default: false
+        :arg str observation_date: The observation date to be included with the returned release table.
+        YYYY-MM-DD formatted string, optional, default: 9999-12-31 (latest available)
+        :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
+        """
+        path='/release/tables?'
+        params['release_id'] = release_id
+        response_type = response_type if response_type else self.response_type
+        if response_type != 'xml': params['file_type'] = 'json'
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response

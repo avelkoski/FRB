@@ -29,3 +29,4 @@ dates = [
 
 ## SSL Verify HTTPS
 ssl_verify = True
+proxy = None

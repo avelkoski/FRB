@@ -26,12 +26,13 @@ class TagsClient(NamespacedClient):
         :arg str sort_order: Sort results for attribute values specified by order_by. Options are 'asc','desc'
         :arg str exclude_tag_names: Tag names used to exclude series. Separate with semicolon as in "income;bea"
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/tags/series?'
         params['tag_names'] = tag_names
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -55,11 +56,12 @@ class TagsClient(NamespacedClient):
         :arg str tag_group_id: Tag ID to filter tags by. Options are 'freq', 'gen', 'geo', 'geot', 'rls', 'seas', 'src'
         :arg str search_text: The words to find matching tags with. For example 'mortgage rates'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path = '/tags?'
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response
 
     @query_params('realtime_start','realtime_end','limit','offset',
@@ -84,10 +86,11 @@ class TagsClient(NamespacedClient):
         :arg str tag_group_id: Tag ID to filter tags by. Options are 'freq', 'gen', 'geo', 'geot', 'rls', 'seas', 'src'
         :arg str search_text: The words to find matching tags with. For example 'mortgage rates'
         :arg bool ssl_verify: To verify HTTPs.
+        :arg dict proxy: Set proxy dictionary. 
         """
         path='/related_tags?'
         params['tag_names'] = tag_names
         response_type = response_type if response_type else self.response_type
         if response_type != 'xml': params['file_type'] = 'json'
-        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify)
+        response = _get_request(self.url_root,self.api_key,path,response_type,params,self.ssl_verify,self.proxy)
         return response

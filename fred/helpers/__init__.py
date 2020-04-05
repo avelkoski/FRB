@@ -1,7 +1,8 @@
 from sys import version_info
+import requests
 if version_info[0] >= 3:
     from urllib.parse import urlencode
-    from urllib.request import Request, urlopen
+    from urllib.request import Request, urlopen, ProxyHandler, build_opener, install_opener
     import ssl
 else:
     from urllib import urlencode
@@ -12,21 +13,28 @@ import fred.config as c
 from json import loads
 
 try:
-    from pandas import DataFrame
+    import pandas as pd
     _has_pandas = True
 except ImportError:
     DataFrame = None
     _has_pandas = False
 
 # consider putting this in ~/.fred or env var
-_USE_JOBLIB_CACHE = True
+_USE_JOBLIB_CACHE = False
 _THROTTLE_REQUESTS = True
 
-def _fetch(url, ssl_verify = True):
+def _fetch(url, ssl_verify = True, proxy = None):
     """
     Helper funcation to fetch content from a given url.
     """
     req = Request(url)
+
+    if proxy is None:
+        pass
+    else:
+        opener = build_opener(ProxyHandler(proxy))
+        install_opener(opener)
+
     if ssl_verify:
         page = urlopen(req)
     else:
@@ -52,7 +60,7 @@ def _convert(frame):
     """
     Helper funcation to build a parameterized url.
     """
-    frame = frame.convert_objects(convert_numeric=True)
+    # frame = frame.apply(pd.to_numeric)
     for column in frame:
         if column in c.dates:
             frame[column] = frame[column].astype('datetime64')
@@ -78,7 +86,7 @@ def _data_frame(content):
     """
     response = loads(content)
     key = [x for x in response.keys() if x in c.response_data][0]
-    frame = DataFrame(response[key])
+    frame = pd.DataFrame(response[key])
     final_frame = _convert(frame)
     return final_frame
 
@@ -138,12 +146,12 @@ def _dispatch(response_type):
     return dispatch[response_type]
 
 
-def _get_request(url_root,api_key,path,response_type,params, ssl_verify):
+def _get_request(url_root,api_key,path,response_type,params, ssl_verify, proxy):
     """
     Helper funcation that requests a get response from FRED.
     """
     url = _url_builder(url_root,api_key,path,params)
-    content = _fetch(url, ssl_verify)
+    content = _fetch(url, ssl_verify, proxy)
     response = _dispatch(response_type)(content)
     return response
 
