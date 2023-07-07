@@ -13,6 +13,7 @@ from json import loads
 
 try:
     from pandas import DataFrame
+    import pandas as pd
     _has_pandas = True
 except ImportError:
     DataFrame = None
@@ -55,7 +56,7 @@ def _convert(frame):
     frame = frame.convert_objects(convert_numeric=True)
     for column in frame:
         if column in c.dates:
-            frame[column] = frame[column].astype('datetime64')
+            frame[column] = pd.to_datetime(frame[column], errors = 'coerce')
     return frame
 
 def _dict(content):
